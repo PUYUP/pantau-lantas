@@ -26,7 +26,7 @@ SECRET_KEY = '0l0l@x=6f(_lvr5ro556rah8(nc*k_p426x2-$r%)7*2xyozzc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', 'pantau-lantas.herokuapp.com']
 
 
 # Application definition
