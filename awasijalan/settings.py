@@ -104,6 +104,7 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -116,6 +117,14 @@ DATABASES = {
             'sql_mode': 'STRICT_TRANS_TABLES',
         }
     }
+}
+"""
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+DATABASES = {
+	'default': dj_database_url.config(
+		default=config('DATABASE_URL')
+	)
 }
 
 
