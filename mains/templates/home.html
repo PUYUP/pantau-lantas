@@ -2,9 +2,8 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-	{{ police_number_obj }}
-	{{ user_police_number }}
 	<h3>Laporan</h3>
+	
 	<ol>
 		{% for item in reported %}
 			<li>{{ item.police_number.vehicle }} &mdash; {{ item.police_number }}: {{ item.num_reported }}</li>
@@ -19,20 +18,6 @@
 			<li>{{ item.vehicle }} &mdash; {{ item.number }}: {{ item.num_reported }}</li>
 		{% endfor %}
 	</ol>
-
-	<hr />
-
-	<!--
-	{{ vehicle }}
-	{{ police_number_init }}
-	{{ created }}
-	{{ reporter_init }}
-	{{ police_number_reported }}
-	{{ police_number }}
-	-->
-
-	{{ data }}
-	{{ settings_auth }}
 
 	<form action="" method="post">
 		{% csrf_token %}

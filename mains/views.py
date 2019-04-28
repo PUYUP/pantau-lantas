@@ -66,37 +66,9 @@ class HomeView(View):
 
 	# Aksi GET
 	def get(self, request):
-		reporter = User.objects.get(pk=1)
-		vehicle = Vehicle.objects.get(pk=1)
-		police_number_init = "BH3904EF"
-		police_number, created = PoliceNumber.objects.get_or_create(reporter=reporter, vehicle=vehicle, number=police_number_init)
-
 		police_number_list = PoliceNumber.objects.annotate(num_reported=Count("reported"))
 		reported_list = Reported.objects.annotate(num_reported=Count("police_number"))
 
-		data = {
-			"username": "foobar",
-			"email": "foobar@google.com",
-			"password": "123456",
-		}
-
-		police_number_obj = None
-		police_number = "ZH8001AD"
-		vehicle = Vehicle.objects.get(pk=2)
-		try:
-			police_number_obj = PoliceNumber.objects.get(vehicle=vehicle, number=police_number)
-		except PoliceNumber.DoesNotExist:
-			police_number_obj = None
-
-		police_number_c = PoliceNumber.objects.get(pk=208)
-		user_police_number = UserPoliceNumber.objects.get(police_number=police_number_c.number)
-
-		self.context["user_police_number"] = police_number_c
-		self.context["police_number_obj"] = police_number_obj
-		self.context["data"] = data["username"]
-		self.context["vehicle"] = vehicle
-		self.context["police_number_init"] = police_number
-		self.context["created"] = created
 		self.context["police_number"] = police_number_list
 		self.context["police_number_reported"] = police_number_list[0].num_reported
 		self.context["reported"] = reported_list;
