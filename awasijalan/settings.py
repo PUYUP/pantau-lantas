@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', 'pantau-lantas.herokuapp.com']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -160,7 +159,7 @@ STATICFILES_DIRS = (
 	os.path.join(BASE_DIR, 'static/'),
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # JWT -> https://github.com/davesque/django-rest-framework-simplejwt
 
