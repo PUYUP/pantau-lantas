@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import Avg, Count, Min, Sum
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
 
 from rest_framework import routers, serializers, viewsets
 from rest_framework.response import Response
@@ -100,6 +101,15 @@ class ReportedSerializer(serializers.ModelSerializer):
 
 	def create(self, validated_data):
 		police_number = validated_data.pop("police_number")
-		police_number_create, created = PoliceNumber.objects.get_or_create(**police_number)
 		
-		return Reported.objects.create(police_number=police_number_create, **validated_data)
+		try:
+			police_number_create, created = PoliceNumber.objects.get_or_create(
+				number=police_number.get("number"), vehicle=police_number.get("vehicle"),
+				defaults=police_number
+			)
+		except IntegrityError:
+			police_number_create = None
+		
+		if police_number_create:
+			return Reported.objects.create(police_number=police_number_create, **validated_data)
+		raise serializers.ValidationError({"error": "Data invalid."});
