@@ -70,7 +70,6 @@ class HomeView(View):
 		reported_list = Reported.objects.annotate(num_reported=Count("police_number"))
 
 		self.context["police_number"] = police_number_list
-		self.context["police_number_reported"] = police_number_list[0].num_reported
 		self.context["reported"] = reported_list;
 		self.context["settings_auth"] = api_settings.DEFAULT_AUTHENTICATION_CLASSES
 		return render(request, self.template_name, self.context)
